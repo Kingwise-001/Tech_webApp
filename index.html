@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TechCrush — Crushing the Future of Technology</title>
+  <meta name="description" content="TechCrush is your premier destination for the latest tech news, reviews, and insights. Stay ahead of the curve."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --card: #16161f;
+      --border: rgba(255,255,255,0.07);
+      --accent: #7c3aed;
+      --accent2: #06b6d4;
+      --glow: rgba(124,58,237,0.35);
+      --text: #f0f0ff;
+      --muted: #8888aa;
+      --gradient: linear-gradient(135deg, #7c3aed, #06b6d4);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 5%;
+      background: rgba(10,10,15,0.75);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -1px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--gradient);
+      color: #fff !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 600 !important;
+      transition: opacity 0.25s, transform 0.25s !important;
+    }
+    .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 7rem 5% 4rem;
+      overflow: hidden;
+    }
+
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+    }
+    .orb1 { width: 500px; height: 500px; background: rgba(124,58,237,0.25); top: -100px; left: -100px; }
+    .orb2 { width: 400px; height: 400px; background: rgba(6,182,212,0.2); bottom: -50px; right: -80px; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(124,58,237,0.15);
+      border: 1px solid rgba(124,58,237,0.35);
+      color: #a78bfa;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.35rem 1rem;
+      border-radius: 50px;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .badge span { font-size: 0.85rem; }
+
+    .hero h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      max-width: 900px;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 .highlight {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: var(--gradient);
+      color: #fff;
+      border: none;
+      padding: 0.85rem 2rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.25s, box-shadow 0.25s;
+      box-shadow: 0 0 25px var(--glow);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 45px var(--glow); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.85rem 2rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); background: rgba(124,58,237,0.08); }
+
+    /* ── STATS ── */
+    .stats {
+      display: flex;
+      gap: 3rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 4rem;
+      padding-top: 3rem;
+      border-top: 1px solid var(--border);
+      width: 100%;
+      max-width: 700px;
+    }
+
+    .stat h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem;
+      font-weight: 900;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat p { color: var(--muted); font-size: 0.85rem; margin-top: 0.2rem; }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 5rem 5%; }
+    .section-label {
+      text-align: center;
+      color: var(--accent2);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      text-align: center;
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 3rem;
+    }
+
+    /* ── ARTICLES ── */
+    .articles { background: var(--surface); }
+
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .article-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .article-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(124,58,237,0.4);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-img-placeholder {
+      width: 100%;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .card-body { padding: 1.4rem; }
+
+    .card-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.7rem;
+      border-radius: 50px;
+      margin-bottom: 0.8rem;
+    }
+    .tag-ai { background: rgba(124,58,237,0.2); color: #a78bfa; }
+    .tag-crypto { background: rgba(6,182,212,0.15); color: #22d3ee; }
+    .tag-gadgets { background: rgba(236,72,153,0.15); color: #f472b6; }
+    .tag-space { background: rgba(251,191,36,0.15); color: #fbbf24; }
+
+    .card-body h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 0.6rem;
+    }
+    .card-body p { color: var(--muted); font-size: 0.85rem; line-height: 1.6; }
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    /* ── FEATURES ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .feature-card:hover { border-color: rgba(124,58,237,0.4); transform: translateY(-4px); }
+
+    .feature-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+    .icon-purple { background: rgba(124,58,237,0.2); }
+    .icon-cyan   { background: rgba(6,182,212,0.15); }
+    .icon-pink   { background: rgba(236,72,153,0.15); }
+    .icon-amber  { background: rgba(251,191,36,0.15); }
+
+    .feature-card h3 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+    }
+    .feature-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.65; }
+
+    /* ── NEWSLETTER ── */
+    .newsletter {
+      background: var(--surface);
+      text-align: center;
+    }
+
+    .newsletter-box {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .newsletter-box p { color: var(--muted); margin-bottom: 1.8rem; line-height: 1.7; }
+
+    .email-form {
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .email-form input {
+      flex: 1;
+      min-width: 220px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.85rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.25s;
+      font-family: 'Inter', sans-serif;
+    }
+    .email-form input:focus { border-color: var(--accent); }
+    .email-form input::placeholder { color: var(--muted); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 5%;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    footer p { color: var(--muted); font-size: 0.85rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    .float { animation: float 5s ease-in-out infinite; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.7s ease both; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.25s; }
+    .delay-3 { animation-delay: 0.4s; }
+    .delay-4 { animation-delay: 0.55s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .stats { gap: 1.8rem; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">TechCrush</div>
+    <ul class="nav-links">
+      <li><a href="#articles">Articles</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#newsletter">Newsletter</a></li>
+      <li><a href="#newsletter" class="nav-cta">Subscribe</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-orb orb1"></div>
+    <div class="hero-orb orb2"></div>
+
+    <div class="badge fade-up"><span>⚡</span> Breaking Tech News Daily</div>
+
+    <h1 class="fade-up delay-1">
+      Crushing the<br/><span class="highlight">Future of Tech</span>
+    </h1>
+
+    <p class="fade-up delay-2">
+      Your premier destination for the latest in AI, gadgets, crypto, and digital innovation. Stay ahead of the curve — every single day.
+    </p>
+
+    <div class="hero-buttons fade-up delay-3">
+      <a href="#articles" class="btn-primary">Explore Articles</a>
+      <a href="#newsletter" class="btn-secondary">Get Newsletter</a>
+    </div>
+
+    <div class="stats fade-up delay-4">
+      <div class="stat">
+        <h3>2.4M+</h3>
+        <p>Monthly Readers</p>
+      </div>
+      <div class="stat">
+        <h3>500+</h3>
+        <p>Articles Published</p>
+      </div>
+      <div class="stat">
+        <h3>50+</h3>
+        <p>Expert Contributors</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLES -->
+  <section class="articles" id="articles">
+    <p class="section-label">Latest Stories</p>
+    <h2 class="section-title">What's Crushing Right Now</h2>
+
+    <div class="articles-grid">
+
+      <div class="article-card">
+        <div class="card-img-placeholder" style="background: linear-gradient(135deg,#1e1040,#3b1080);">🤖</div>
+        <div class="card-body">
+          <span class="card-tag tag-ai">Artificial Intelligence</span>
+          <h3>GPT-5 Redefines Reasoning: What You Need to Know</h3>
+          <p>OpenAI's latest model crushes benchmarks with human-level reasoning across coding, math, and multimodal tasks.</p>
+          <div class="card-meta">
+            <span>👤 Alex Rivera</span>
+            <span>·</span>
+            <span>Apr 28, 2026</span>
+            <span>·</span>
+            <span>5 min read</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="card-img-placeholder" style="background: linear-gradient(135deg,#0c2a3d,#0a4a6b);">🪙</div>
+        <div class="card-body">
+          <span class="card-tag tag-crypto">Crypto</span>
+          <h3>Bitcoin Hits New ATH: The On-Chain Signals You Missed</h3>
+          <p>While markets celebrated, savvy on-chain analysts saw this rally coming weeks in advance. Here's how.</p>
+          <div class="card-meta">
+            <span>👤 Sam Okafor</span>
+            <span>·</span>
+            <span>Apr 27, 2026</span>
+            <span>·</span>
+            <span>7 min read</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="card-img-placeholder" style="background: linear-gradient(135deg,#2d0a1f,#5a1040);">📱</div>
+        <div class="card-body">
+          <span class="card-tag tag-gadgets">Gadgets</span>
+          <h3>Apple Vision Pro 2 Review: The Leap We've Been Waiting For</h3>
+          <p>Lighter, brighter, and finally affordable? We spent 30 days living with Apple's spatial computing sequel.</p>
+          <div class="card-meta">
+            <span>👤 Priya Chen</span>
+            <span>·</span>
+            <span>Apr 25, 2026</span>
+            <span>·</span>
+            <span>10 min read</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="card-img-placeholder" style="background: linear-gradient(135deg,#1a1500,#3a3000);">🚀</div>
+        <div class="card-body">
+          <span class="card-tag tag-space">Space Tech</span>
+          <h3>SpaceX Starship Completes First Commercial Mars Cargo Run</h3>
+          <p>A historic milestone for humanity as the first commercial payload successfully lands in Hellas Planitia.</p>
+          <div class="card-meta">
+            <span>👤 Jordan Musk</span>
+            <span>·</span>
+            <span>Apr 24, 2026</span>
+            <span>·</span>
+            <span>6 min read</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="card-img-placeholder" style="background: linear-gradient(135deg,#0a2a1a,#0a5030);">⚡</div>
+        <div class="card-body">
+          <span class="card-tag tag-ai">AI</span>
+          <h3>Gemini 3 Ultra vs Claude 4: The Ultimate Showdown</h3>
+          <p>We ran 1,000 head-to-head tasks. Here's which AI assistant wins for developers, creators, and analysts.</p>
+          <div class="card-meta">
+            <span>👤 Tolu Adeyemi</span>
+            <span>·</span>
+            <span>Apr 23, 2026</span>
+            <span>·</span>
+            <span>8 min read</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="card-img-placeholder" style="background: linear-gradient(135deg,#1a0a2a,#2d1550);">🔮</div>
+        <div class="card-body">
+          <span class="card-tag tag-gadgets">Gadgets</span>
+          <h3>Neuralink N2 Implant Lets Users Control Devices Telepathically</h3>
+          <p>The second-gen BCI chip arrives with 10x bandwidth and a new consumer-grade form factor. Here's what it feels like.</p>
+          <div class="card-meta">
+            <span>👤 Mei Zhang</span>
+            <span>·</span>
+            <span>Apr 22, 2026</span>
+            <span>·</span>
+            <span>9 min read</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <p class="section-label">Why TechCrush</p>
+    <h2 class="section-title">Built for the Curious Mind</h2>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon icon-purple">⚡</div>
+        <h3>Real-Time Coverage</h3>
+        <p>Breaking stories the moment they happen. Our team monitors the tech world 24/7 so you never miss a beat.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-cyan">🧠</div>
+        <h3>Expert Analysis</h3>
+        <p>Not just news — deep dives, opinions, and analysis from industry veterans who've been in the trenches.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-pink">🎯</div>
+        <h3>Curated for You</h3>
+        <p>Our smart feed learns what you love and surfaces stories that matter to your specific interests and career.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-amber">🌍</div>
+        <h3>Global Perspective</h3>
+        <p>Contributors from 30+ countries bring local insights to global tech trends, giving you the full picture.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter" id="newsletter">
+    <div class="newsletter-box">
+      <p class="section-label">Stay in the Loop</p>
+      <h2 class="section-title" style="margin-bottom:1rem;">Get TechCrush Weekly</h2>
+      <p>Join 2.4 million readers. Every week, the most important tech stories — curated, distilled, and delivered straight to your inbox. No spam, ever.</p>
+      <div class="email-form">
+        <input type="email" placeholder="you@example.com" id="email-input"/>
+        <button class="btn-primary" onclick="subscribe()">Subscribe Free</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="logo" style="font-size:1.1rem;">TechCrush</div>
+    <p>© 2026 TechCrush. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Contact</a>
+      <a href="#">About</a>
+    </div>
+  </footer>
+
+  <script>
+    function subscribe() {
+      const input = document.getElementById('email-input');
+      const val = input.value.trim();
+      if (!val || !val.includes('@')) {
+        input.style.borderColor = '#f43f5e';
+        input.placeholder = 'Please enter a valid email';
+        setTimeout(() => {
+          input.style.borderColor = '';
+          input.placeholder = 'you@example.com';
+        }, 2000);
+        return;
+      }
+      input.value = '';
+      input.placeholder = '🎉 You\'re in! Check your inbox.';
+      setTimeout(() => { input.placeholder = 'you@example.com'; }, 4000);
+    }
+
+    // Smooth scroll for all anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+  </script>
+</body>
+</html>
